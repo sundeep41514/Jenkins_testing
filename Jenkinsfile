@@ -24,21 +24,24 @@ pipeline {
 				echo 'Hello there'
 			}
 		}
-		parallel{
-			stage('unit test'){
-				steps{
-					echo 'Running the unit test'
-				}
-			}
-			stage('Integration test'){
-				agent{
-					docker{
-						reusenode false
-						image 'centos'
+		stage('stage 4')
+		{
+			parallel{
+				stage('unit test'){
+					steps{
+						echo 'Running the unit test'
 					}
 				}
-				steps{
-					echo 'Running the integration test..'
+				stage('Integration test'){
+					agent{
+						docker{
+							reusenode false
+							image 'centos'
+						}
+					}
+					steps{
+						echo 'Running the integration test..'
+					}
 				}
 			}
 		}
